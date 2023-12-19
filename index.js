@@ -28,14 +28,15 @@ wss.on("connection", (ws, req) => {
     const child = spawn('msfconsole');
     child.stdout.on('data', (data) => {
       console.log(data.toString());
+      var message = data.toString();
+      if (message.includes("Meterpreter session 1 opened")) {
+        ws.send('initdone');
+      }
     });
     
     child.stdin.write("ls\n");
     
     spawns[uid] = child;
- 
-    // sending message to client
-    ws.send('Welcome, you are connected!');
  
     //on message from client
     ws.on("message", data => {
