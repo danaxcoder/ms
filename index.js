@@ -25,7 +25,14 @@ wss.on("connection", (ws, req) => {
     }
     console.log("Unique ID: "+uid);
     
-    spawns[uid] = null;
+    const spawn = require('child_process').spawn;
+    const child = spawn('msfconsole');
+    child.stdout.on('data', (data) => {
+    
+    child.stdin.write("ls\n");
+    child.stdin.end();
+    
+    spawns[uid] = spawn;
  
     // sending message to client
     ws.send('Welcome, you are connected!');
