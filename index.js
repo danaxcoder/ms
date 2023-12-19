@@ -43,7 +43,7 @@ wss.on("connection", (ws, req) => {
         var uid = "";
         var action = "";
         var cmd = "";
-        var dataSplit = data.split("&");
+        var dataSplit = data.toString().split("&");
         for (var i=0; i<dataSplit.length; i++) {
           var datumSplit = dataSplit[i];
           var paramName = datumSplit.split("=")[0];
