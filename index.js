@@ -25,18 +25,17 @@ wss.on("connection", (ws, req) => {
     }
     console.log("Unique ID: "+uid);
     
-    const child = spawn('msfconsole');
-    child.stdout.on('data', (data) => {
-      console.log(data.toString());
-      var message = data.toString();
-      if (message.includes("Meterpreter session 1 opened")) {
-        ws.send('initdone');
-      }
-    });
-    
-    child.stdin.write("ls\n");
-    
-    spawns[uid] = child;
+    if (spawns[uid] == null) {
+      const child = spawn('msfconsole');
+      child.stdout.on('data', (data) => {
+        console.log(data.toString());
+        var message = data.toString();
+        if (message.includes("Meterpreter session 1 opened")) {
+          ws.send('initdone');
+        }
+      });
+      spawns[uid] = child;
+    }
  
     //on message from client
     ws.on("message", data => {
