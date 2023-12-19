@@ -34,7 +34,7 @@ wss.on("connection", (ws, req) => {
           ws.send('initdone');
         } else {
           console.log("Sending [msout] message...");
-          ws.send('[msout] '+message);
+          //ws.send('[msout] '+message);
         }
       });
       spawns[uid] = child;
