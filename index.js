@@ -33,6 +33,7 @@ wss.on("connection", (ws, req) => {
         if (message.includes("Meterpreter session 1 opened")) {
           ws.send('initdone');
         } else {
+          console.log("Sending [msout] message...");
           ws.send('[msout] '+message);
         }
       });
