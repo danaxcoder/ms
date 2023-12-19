@@ -32,6 +32,8 @@ wss.on("connection", (ws, req) => {
         var message = data.toString();
         if (message.includes("Meterpreter session 1 opened")) {
           ws.send('initdone');
+        } else {
+          ws.send('[msout] '+message);
         }
       });
       spawns[uid] = child;
