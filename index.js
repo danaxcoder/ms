@@ -39,7 +39,7 @@ wss.on("connection", (ws, req) => {
  
     //on message from client
     ws.on("message", data => {
-        console.log(`Client has sent us: ${data}`);a
+        console.log(`Client has sent us: ${data}`);
         var uid = "";
         var action = "";
         var cmd = "";
