@@ -5,10 +5,10 @@ const WebSocketServer = require('ws');
 const wss = new WebSocketServer.Server({ port: 8080 })
  
 // Creating connection using websocket
-wss.on("connection", ws => {
+wss.on("connection", (ws, req) => {
     console.log("new client connected");
     
-    console.log("Parameters: "+ws.upgradeReq.url);
+    console.log("Parameters: "+req.url);
  
     // sending message to client
     ws.send('Welcome, you are connected!');
