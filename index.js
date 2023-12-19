@@ -1,3 +1,5 @@
+var spawns = {};
+
 // Importing the required modules
 const WebSocketServer = require('ws');
  
@@ -9,6 +11,21 @@ wss.on("connection", (ws, req) => {
     console.log("new client connected");
     
     console.log("Parameters: "+req.url);
+    
+    var params = req.url.substring(2, req.url.length());
+    var paramsSplit = params.split("&");
+    var uid = "";
+    for (var i=0; i<paramsSplit.length; i++) {
+      var paramSplit = paramsSplit[i];
+      var paramName = paramSplit[0];
+      var paramValue = paramSplit[1];
+      if (paramName == "uid") {
+        uid = paramValue;
+      }
+    }
+    console.log("Unique ID: "+uid);
+    
+    spawns[uid] = null;
  
     // sending message to client
     ws.send('Welcome, you are connected!');
