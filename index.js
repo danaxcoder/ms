@@ -31,17 +31,36 @@ wss.on("connection", (ws, req) => {
     });
     
     child.stdin.write("ls\n");
-    child.stdin.end();
     
-    spawns[uid] = spawn;
+    spawns[uid] = child;
  
     // sending message to client
     ws.send('Welcome, you are connected!');
  
     //on message from client
-    /*ws.on("message", data => {
-        console.log(`Client has sent us: ${data}`)
-    });*/
+    ws.on("message", data => {
+        console.log(`Client has sent us: ${data}`);a
+        var uid = "";
+        var action = "";
+        var cmd = "";
+        var dataSplit = data.split("&");
+        for (var i=0; i<dataSplit.length; i++) {
+          var datumSplit = dataSplit[i];
+          var paramName = datumSplit.split("=")[0];
+          var paramValue = datumSplit.split("=")[1];
+          if (paramName == "uid") {
+            uid = paramValue;
+          } else if (paramName == "action") {
+            action = paramValue;
+          } else if (paramName == "cmd") {
+            cmd = paramValue;
+          }
+        }
+        if (action == 'cmd') {
+          var child = spawns[uid];
+          child.stdin.write(cmd+"\n");
+        }
+    });
  
     // handling what to do when clients disconnects from server
     ws.on("close", () => {
