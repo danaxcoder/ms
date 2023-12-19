@@ -17,8 +17,8 @@ wss.on("connection", (ws, req) => {
     var uid = "";
     for (var i=0; i<paramsSplit.length; i++) {
       var paramSplit = paramsSplit[i];
-      var paramName = paramSplit[0];
-      var paramValue = paramSplit[1];
+      var paramName = paramSplit.split("=")[0];
+      var paramValue = paramSplit.split("=")[1];
       if (paramName == "uid") {
         uid = paramValue;
       }
