@@ -28,6 +28,7 @@ wss.on("connection", (ws, req) => {
     const spawn = require('child_process').spawn;
     const child = spawn('msfconsole');
     child.stdout.on('data', (data) => {
+    });
     
     child.stdin.write("ls\n");
     child.stdin.end();
