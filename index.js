@@ -1,6 +1,14 @@
 const spawn = require('child_process').spawn;
 const WebSocketServer = require('ws');
 
+const child = spawn('msfconsole');
+    child.stdout.on('data', (data) => {
+    });
+    
+    child.stdin.write("ls\n");
+    child.stdin.end();
+    return;
+
 var spawns = {};
  
 // Creating a new websocket server
