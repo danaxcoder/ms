@@ -12,7 +12,7 @@ wss.on("connection", (ws, req) => {
     
     console.log("Parameters: "+req.url);
     
-    var params = req.url.substring(2, req.url.length());
+    var params = req.url.substring(2, req.url.length);
     var paramsSplit = params.split("&");
     var uid = "";
     for (var i=0; i<paramsSplit.length; i++) {
