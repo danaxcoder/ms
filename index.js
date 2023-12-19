@@ -1,7 +1,7 @@
-var spawns = {};
-
-// Importing the required modules
+const spawn = require('child_process').spawn;
 const WebSocketServer = require('ws');
+
+var spawns = {};
  
 // Creating a new websocket server
 const wss = new WebSocketServer.Server({ port: 8080 })
@@ -25,7 +25,6 @@ wss.on("connection", (ws, req) => {
     }
     console.log("Unique ID: "+uid);
     
-    const spawn = require('child_process').spawn;
     const child = spawn('msfconsole');
     child.stdout.on('data', (data) => {
     });
@@ -39,9 +38,9 @@ wss.on("connection", (ws, req) => {
     ws.send('Welcome, you are connected!');
  
     //on message from client
-    ws.on("message", data => {
+    /*ws.on("message", data => {
         console.log(`Client has sent us: ${data}`)
-    });
+    });*/
  
     // handling what to do when clients disconnects from server
     ws.on("close", () => {
