@@ -25,6 +25,8 @@ wss.on("connection", (ws, req) => {
     }
     console.log("Unique ID: "+uid);
     
+    console.log("spawn is null? "+(spawns[uid]==null));
+    
     if (spawns[uid] == null) {
       const child = spawn('msfconsole');
       child.stdout.on('data', (data) => {
