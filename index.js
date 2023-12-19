@@ -27,21 +27,22 @@ wss.on("connection", (ws, req) => {
     
     console.log("spawn is null? "+(spawns[uid]==null));
     
-    if (spawns[uid] == null) {
-      const child = spawn('msfconsole');
-      child.stdout.on('data', (data) => {
-        console.log(data.toString());
-        var message = data.toString();
-        if (message.includes("Meterpreter session") || message.startsWith("[*] Meterpreter session")) {
-          console.log("Sending initdone...");
-          ws.send('initdone');
-        } else {
-          console.log("Sending [msout] message...");
-          ws.send('[msout] '+message);
-        }
-      });
+    var child = spawns[uid];
+    if (child == null) {
+      child = spawn('msfconsole');
       spawns[uid] = child;
     }
+    child.stdout.on('data', (data) => {
+      console.log(data.toString());
+      var message = data.toString();
+      if (message.includes("Meterpreter session") || message.startsWith("[*] Meterpreter session")) {
+        console.log("Sending initdone...");
+        ws.send('initdone');
+      } else {
+        console.log("Sending [msout] message...");
+        ws.send('[msout] ' + message);
+      }
+    });
  
     //on message from client
     ws.on("message", data => {
