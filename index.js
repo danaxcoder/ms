@@ -30,7 +30,8 @@ wss.on("connection", (ws, req) => {
       child.stdout.on('data', (data) => {
         console.log(data.toString());
         var message = data.toString();
-        if (message.includes("Meterpreter session")) {
+        if (message.includes("Meterpreter session") || message.startsWith("[*] Meterpreter session"))) {
+          console.log("Sending initdone...");
           ws.send('initdone');
         } else {
           console.log("Sending [msout] message...");
