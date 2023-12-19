@@ -70,7 +70,7 @@ wss.on("connection", (ws, req) => {
  
     // handling what to do when clients disconnects from server
     ws.on("close", () => {
-        console.log("the client has connected");
+        console.log("the client has disconnected");
     });
     // handling client connection error
     ws.onerror = function () {
