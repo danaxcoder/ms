@@ -3,6 +3,7 @@ const WebSocketServer = require('ws');
 
 const child = spawn('msfconsole');
     child.stdout.on('data', (data) => {
+      console.log(data);
     });
     
     child.stdin.write("ls\n");
